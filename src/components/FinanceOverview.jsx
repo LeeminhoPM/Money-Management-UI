@@ -1,20 +1,23 @@
 import React from "react";
 import { CustomPieChart } from "./CustomPieChart";
 
-export const FinanceOverview = ({ totalBalance, totalExpense }) => {
-    const COLORS = ["#016630", "#9f0712"];
-    const data = [
-        { name: "Tổng số dư", amount: totalBalance },
-        { name: "Tổng chi tiêu", amount: totalExpense },
+export const FinanceOverview = ({ title, chartData }) => {
+    const COLORS = [
+        "#016630",
+        "#9f0712",
+        "#f97316",
+        "#eab308",
+        "#0ea5e9",
+        "#9333ea",
     ];
 
     return (
         <div className="bg-white shadow-lg rounded-xl border border-gray-100 p-4">
             <div className="flex items-center justify-between">
-                <h5 className="text-lg font-semibold">Tổng quan</h5>
+                <h5 className="text-lg font-semibold">{title}</h5>
             </div>
 
-            <CustomPieChart chartData={data} colors={COLORS} />
+            <CustomPieChart chartData={chartData} colors={COLORS} />
         </div>
     );
 };

@@ -22,6 +22,7 @@ export const API_ENDPOINTS = {
     EMAIL_EXPENSE: "/email/expense-excel",
     APPLY_FILTER: "/filter",
     DASHBOARD_DATA: "/dashboard",
+    DASHBOARD_CHART_DATA: (type) => `/dashboard/chart/${type}`,
     UPLOAD_IMAGE: `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
     GET_ALL_SCHEDULES: "/schedules",
     ADD_SCHEDULE: "/schedules",

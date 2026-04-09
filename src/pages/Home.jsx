@@ -16,6 +16,8 @@ export const Home = () => {
     useUser();
     const navigate = useNavigate();
     const [dashboardData, setDashboardData] = useState(null);
+    const [incomeChartData, setIncomeChartData] = useState(null);
+    const [expenseChartData, setExpenseChartData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchDashboardData = async () => {
@@ -42,8 +44,38 @@ export const Home = () => {
         }
     };
 
+    const fetchChartData = async (type) => {
+        if (isLoading) {
+            return;
+        }
+        setIsLoading(true);
+
+        try {
+            const response = await AxiosConfig.get(
+                API_ENDPOINTS.DASHBOARD_CHART_DATA(type),
+            );
+
+            if (response.status === 200) {
+                if (type === "income") {
+                    setIncomeChartData(response.data);
+                } else if (type === "expense") {
+                    setExpenseChartData(response.data);
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(
+                error.response?.data?.message || "Không thể tải dữ liệu",
+            );
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
         fetchDashboardData();
+        fetchChartData("income");
+        fetchChartData("expense");
         return () => {};
     }, []);
 
@@ -78,15 +110,21 @@ export const Home = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     {/* Giao dịch gần đây */}
-                    <RecentTransactions
+                    {/* <RecentTransactions
                         transactions={dashboardData?.recentTransactions}
                         onMore={() => navigate("/expense")}
+                    /> */}
+
+                    {/* Biểu đồ thu nhập */}
+                    <FinanceOverview
+                        title="Tổng quan chi tiêu"
+                        chartData={expenseChartData}
                     />
 
                     {/* Biểu đồ thu nhập */}
                     <FinanceOverview
-                        totalBalance={dashboardData?.totalBalance || 0}
-                        totalExpense={dashboardData?.totalExpense || 0}
+                        title="Tổng quan thu nhập"
+                        chartData={incomeChartData}
                     />
 
                     {/* Thu nhập */}

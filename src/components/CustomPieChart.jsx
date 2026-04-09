@@ -25,11 +25,20 @@ export const CustomPieChart = ({ chartData, colors }) => {
     }, [chartData]);
 
     return (
-        <ResponsiveContainer width="100%" height="100%" className="pb-6">
+        <ResponsiveContainer width="100%" height={500} className="pb-6">
             <PieChart>
                 <Pie data={chartData} dataKey="amount">
-                    {chartData.map((item, index) => (
-                        <Cell key={`cell-${index}`} fill={colors[index]} />
+                    {chartData?.map((item, index) => (
+                        <Cell
+                            key={`cell-${index}`}
+                            fill={
+                                colors[
+                                    index < colors.length
+                                        ? index
+                                        : index - colors.length
+                                ]
+                            }
+                        />
                     ))}
                 </Pie>
                 <Tooltip
