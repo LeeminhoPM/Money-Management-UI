@@ -8,6 +8,7 @@ import { Filter } from "./pages/Filter";
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { ToastContainer } from "react-toastify";
+import { Schedule } from "./pages/Schedule";
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                     <Route path="/income" element={<Income />} />
                     <Route path="/expense" element={<Expense />} />
                     <Route path="/category" element={<Category />} />
+                    <Route path="/schedule" element={<Schedule />} />
                     <Route path="/filter" element={<Filter />} />
                     <Route path="/signup" element={<SignUp />} />
                 </Routes>

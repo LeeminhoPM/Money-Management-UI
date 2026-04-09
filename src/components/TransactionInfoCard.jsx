@@ -1,4 +1,5 @@
 import {
+    Calendar,
     Pencil,
     Trash2,
     TrendingDown,
@@ -18,6 +19,7 @@ export const TransactionInfoCard = ({
     hideFunctionBtn,
     onDelete,
     onUpdate,
+    cronExpression,
 }) => {
     const getAmountStyles = () =>
         type === "income"
@@ -38,12 +40,22 @@ export const TransactionInfoCard = ({
                 <div>
                     <p className="text-sm text-gray-700 font-medium">{title}</p>
 
-                    <p className="text-xs text-gray-400 mt-1">
-                        {date}
+                    <div className="text-xs text-gray-400 mt-1">
+                        {cronExpression ? (
+                            <div className="relative inline-block">
+                                <Calendar
+                                    size={15}
+                                    className="absolute top-[40%] translate-y-[-50%]"
+                                />{" "}
+                                <p className="ml-4">{cronExpression}</p>
+                            </div>
+                        ) : (
+                            <>{date}</>
+                        )}
                         <span className="text-xs text-gray-400">
-                            {categoryName ? " - " + categoryName : ""}
+                            {categoryName ? "  -  " + categoryName : ""}
                         </span>
-                    </p>
+                    </div>
                 </div>
 
                 <div className="flex items-center gap-2">

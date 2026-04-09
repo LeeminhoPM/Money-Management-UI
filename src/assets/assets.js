@@ -1,4 +1,11 @@
-import { Coins, FunnelPlus, LayoutDashboard, List, Wallet } from "lucide-react";
+import {
+    Clock,
+    Coins,
+    FunnelPlus,
+    LayoutDashboard,
+    List,
+    Wallet,
+} from "lucide-react";
 import login_bg from "./bg_img.jpg";
 import logo from "./logo_img.jpg";
 
@@ -38,6 +45,13 @@ export const SIDE_BAR_DATA = [
     },
     {
         id: "05",
+        label: "Schedule",
+        icon: Clock,
+        path: "/schedule",
+        text: "Đặt lịch",
+    },
+    {
+        id: "06",
         label: "Filter",
         icon: FunnelPlus,
         path: "/filter",

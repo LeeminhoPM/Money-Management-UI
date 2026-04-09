@@ -28,7 +28,7 @@ export const Input = ({
                         disabled={isDisabled}
                         value={value}
                         onChange={(e) => onChange(e)}
-                        className="w-full bg-transparent outline-0 border border-gray-300 rounded-md py-2 px-3 text-gray-700 leading-normal focus:outline-0 focus:border-blue-500"
+                        className={`w-full bg-transparent outline-0 border border-gray-300 rounded-md py-2 px-3 text-gray-700 leading-normal focus:outline-0 focus:border-blue-500 ${isDisabled ? "cursor-not-allowed" : ""}`}
                     >
                         {options.map((option) => (
                             <option key={option.value} value={option.value}>

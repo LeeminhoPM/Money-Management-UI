@@ -49,7 +49,7 @@ export const Income = () => {
         }
     };
 
-    const fetchIcomeCategories = async () => {
+    const fetchIncomeCategories = async () => {
         try {
             const response = await AxiosConfig.get(
                 API_ENDPOINTS.GET_CATEGORY_BY_TYPE("income"),
@@ -197,7 +197,7 @@ export const Income = () => {
             let filename = "ChiTiet_ThuNhap.xlsx";
             // Đường dẫn cho thẻ link
             const url = window.URL.createObjectURL(new Blob([response.data]));
-            // Tạo thẻ a và gán href là và attribute download
+            // Tạo thẻ a và gán href là url và attribute download
             const link = document.createElement("a");
             link.href = url;
             link.setAttribute("download", filename);
@@ -230,7 +230,7 @@ export const Income = () => {
 
     useEffect(() => {
         fetchIncomeDetails();
-        fetchIcomeCategories();
+        fetchIncomeCategories();
     }, []);
 
     return (

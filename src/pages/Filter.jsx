@@ -250,7 +250,7 @@ export const Filter = () => {
                                 onClick={handleSearch}
                                 className="ml-2 p-2 w-fit mb-px bg-primary hover:bg-primary-glow text-white rounded flex items-center justify-center cursor-pointer whitespace-nowrap transition-colors duration-200"
                             >
-                                <Search size={20} /> Tìm kiếm
+                                <Search size={20} className="mr-1" /> Tìm kiếm
                             </button>
                         </div>
                     </form>
