@@ -81,6 +81,28 @@ export const AddScheduleForm = ({
         setCronBuilder((prev) => ({ ...prev, [key]: value }));
     };
 
+    const parseCronExpression = (cron) => {
+        const parts = cron.split(" ");
+        if (parts.length !== 6) return null;
+
+        const [, minute, hour, dayOfMonth, , dayOfWeek] = parts;
+
+        let cycle = "daily";
+
+        if (dayOfWeek !== "*") {
+            cycle = "weekly";
+        } else if (dayOfMonth !== "*") {
+            cycle = "monthly";
+        }
+
+        return {
+            cycle,
+            time: `${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`,
+            dayOfWeek: dayOfWeek === "*" ? "1" : dayOfWeek,
+            dayOfMonth: dayOfMonth === "*" ? "1" : dayOfMonth,
+        };
+    };
+
     const handleChange = (key, value) => {
         setSchedule((prev) => ({
             ...prev,
@@ -124,6 +146,16 @@ export const AddScheduleForm = ({
         fetchCategories(initialScheduleData?.type || schedule.type);
         if (isEditing && initialScheduleData) {
             setSchedule(initialScheduleData);
+            const parsedCron = parseCronExpression(
+                initialScheduleData.cronExpression,
+            );
+            if (parsedCron) {
+                setCronBuilder(parsedCron);
+            } else {
+                toast.error(
+                    "Không thể phân tích biểu thức cron của lịch trình này.",
+                );
+            }
         }
     }, [isEditing, initialScheduleData, schedule.type]);
 
