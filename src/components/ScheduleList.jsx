@@ -32,7 +32,7 @@ export const ScheduleList = ({
                                 )
                                     .next()
                                     .toString(),
-                            ).format("DD/MM/YYYY")}
+                            ).format("HH:mm DD/MM/YYYY")}
                             amount={schedule.amount}
                             type={schedule.type}
                             categoryName={schedule.categoryName}

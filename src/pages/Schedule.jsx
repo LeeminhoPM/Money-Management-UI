@@ -48,10 +48,45 @@ export const Schedule = () => {
     };
 
     const addSchedule = async (schedule) => {
+        console.log(schedule);
+        const {
+            cronExpression,
+            name,
+            amount,
+            icon,
+            type,
+            categoryId,
+            profileId,
+        } = schedule;
+
+        if (!amount || isNaN(amount) || Number(amount) < 1000) {
+            toast.error("Số tiền phải là số và lớn hơn hoặc bằng 1000đ!");
+            return;
+        }
+
+        if (
+            !cronExpression ||
+            !name.trim() ||
+            !type ||
+            !categoryId ||
+            !profileId
+        ) {
+            toast.error("Vui lòng điền đầy đủ thông tin!");
+            return;
+        }
+
         try {
             const response = await AxiosConfig.post(
                 API_ENDPOINTS.ADD_SCHEDULE,
-                schedule,
+                {
+                    cronExpression,
+                    name,
+                    amount: Number(amount),
+                    type,
+                    categoryId,
+                    profileId,
+                    icon,
+                },
             );
             if (response.status === 201) {
                 toast.success("Thêm lịch trình thành công!");
@@ -62,6 +97,53 @@ export const Schedule = () => {
             console.log(err);
             toast.error(
                 err.response?.data?.message || "Thêm lịch trình thất bại!",
+            );
+        }
+    };
+
+    const updateSchedule = async (schedule) => {
+        console.log(schedule);
+        const { cronExpression, name, amount, icon, type, categoryId, userId } =
+            schedule;
+
+        if (!amount || isNaN(amount) || Number(amount) < 1000) {
+            toast.error("Số tiền phải là số và lớn hơn hoặc bằng 1000đ!");
+            return;
+        }
+
+        if (
+            !cronExpression ||
+            !name.trim() ||
+            !type ||
+            !categoryId ||
+            !userId
+        ) {
+            toast.error("Vui lòng điền đầy đủ thông tin!");
+            return;
+        }
+
+        try {
+            const response = await AxiosConfig.put(
+                API_ENDPOINTS.UPDATE_DELETE_SCHEDULE(schedule.id),
+                {
+                    cronExpression,
+                    name,
+                    amount: Number(amount),
+                    type,
+                    categoryId,
+                    userId,
+                    icon,
+                },
+            );
+            if (response.status === 200) {
+                toast.success("Cập nhật lịch trình thành công!");
+                fetchAllSchedules();
+                setOpenEditScheduleModal({ show: false, data: null });
+            }
+        } catch (err) {
+            console.log(err);
+            toast.error(
+                err.response?.data?.message || "Cập nhật lịch trình thất bại!",
             );
         }
     };
@@ -122,6 +204,22 @@ export const Schedule = () => {
                     <AddScheduleForm
                         onAddSchedule={(schedule) => addSchedule(schedule)}
                         isEditing={false}
+                    />
+                </Modal>
+
+                <Modal
+                    isOpen={openEditScheduleModal.show}
+                    onClose={() =>
+                        setOpenEditScheduleModal({ show: false, data: null })
+                    }
+                    title="Chỉnh sửa lịch trình"
+                >
+                    <AddScheduleForm
+                        initialScheduleData={openEditScheduleModal.data}
+                        onAddSchedule={(updatedSchedule) =>
+                            updateSchedule(updatedSchedule)
+                        }
+                        isEditing={true}
                     />
                 </Modal>
 

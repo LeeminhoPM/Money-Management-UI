@@ -121,7 +121,7 @@ export const AddScheduleForm = ({
     };
 
     useEffect(() => {
-        fetchCategories(schedule.type);
+        fetchCategories(initialScheduleData?.type || schedule.type);
         if (isEditing && initialScheduleData) {
             setSchedule(initialScheduleData);
         }
@@ -158,8 +158,8 @@ export const AddScheduleForm = ({
                 />
 
                 <Input
-                    label="Kiểu giao dịch"
-                    value={schedule.type}
+                    label="Danh mục"
+                    value={schedule.categoryId}
                     onChange={({ target }) =>
                         handleChange("categoryId", target.value)
                     }
