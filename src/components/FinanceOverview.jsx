@@ -10,6 +10,7 @@ export const FinanceOverview = ({ title, chartData }) => {
         "#0ea5e9",
         "#9333ea",
     ];
+    const total = chartData?.reduce((acc, item) => acc + item.amount, 0) || 0;
 
     return (
         <div className="bg-white shadow-lg rounded-xl border border-gray-100 p-4">
@@ -17,7 +18,11 @@ export const FinanceOverview = ({ title, chartData }) => {
                 <h5 className="text-lg font-semibold">{title}</h5>
             </div>
 
-            <CustomPieChart chartData={chartData} colors={COLORS} />
+            <CustomPieChart
+                chartData={chartData}
+                total={total}
+                colors={COLORS}
+            />
         </div>
     );
 };

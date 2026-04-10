@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
     Cell,
     Legend,
@@ -8,10 +8,8 @@ import {
     Tooltip,
 } from "recharts";
 
-export const CustomPieChart = ({ chartData, colors }) => {
-    const [total, setTotal] = useState(0);
-
-    const percentageConverter = (amount, total) => {
+export const CustomPieChart = ({ chartData, total, colors }) => {
+    const percentageConverter = (amount) => {
         return ((amount / total) * 100).toFixed(2) + "%";
     };
 
@@ -19,9 +17,6 @@ export const CustomPieChart = ({ chartData, colors }) => {
         if (!chartData) {
             return;
         }
-
-        const sum = chartData.reduce((acc, item) => acc + item.amount, 0);
-        setTotal(sum);
     }, [chartData]);
 
     return (
@@ -43,7 +38,7 @@ export const CustomPieChart = ({ chartData, colors }) => {
                 </Pie>
                 <Tooltip
                     formatter={(amount, name) => [
-                        percentageConverter(amount, total),
+                        percentageConverter(amount),
                         name,
                     ]}
                 />
