@@ -3,12 +3,15 @@ import { CustomPieChart } from "./CustomPieChart";
 
 export const FinanceOverview = ({ title, chartData }) => {
     const COLORS = [
-        "#016630",
-        "#9f0712",
         "#f97316",
+        "#016630",
+        "#14b8a6",
+        "#f43f5e",
+        "#0f766e",
         "#eab308",
         "#0ea5e9",
         "#9333ea",
+        "#db2777",
     ];
     const total = chartData?.reduce((acc, item) => acc + item.amount, 0) || 0;
 
@@ -18,11 +21,19 @@ export const FinanceOverview = ({ title, chartData }) => {
                 <h5 className="text-lg font-semibold">{title}</h5>
             </div>
 
-            <CustomPieChart
-                chartData={chartData}
-                total={total}
-                colors={COLORS}
-            />
+            {chartData?.length > 0 ? (
+                <CustomPieChart
+                    chartData={chartData}
+                    total={total}
+                    colors={COLORS}
+                />
+            ) : (
+                <div className="pt-8">
+                    <p className="text-gray-500">
+                        Không có dữ liệu để hiển thị
+                    </p>
+                </div>
+            )}
         </div>
     );
 };

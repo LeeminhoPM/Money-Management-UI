@@ -38,7 +38,7 @@ export const Sidebar = ({ activeMenu }) => {
         } catch (error) {
             console.log(error);
             toast.error(
-                error.response?.data?.message || "Thêm danh mục mới thất bại",
+                error.response?.data?.message || "Cập nhât thông tin thất bại",
             );
         }
     };
