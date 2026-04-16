@@ -10,23 +10,24 @@ export const IncomeList = ({
     onDownload,
     onEmail,
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isEmailLoading, setIsEmailLoading] = useState(false);
+    const [isDownloadLoading, setIsDownloadLoading] = useState(false);
 
     const handleEmail = async () => {
-        setIsLoading(true);
+        setIsEmailLoading(true);
         try {
             await onEmail();
         } finally {
-            setIsLoading(false);
+            setIsEmailLoading(false);
         }
     };
 
     const handleDownload = async () => {
-        setIsLoading(true);
+        setIsDownloadLoading(true);
         try {
             await onDownload();
         } finally {
-            setIsLoading(false);
+            setIsDownloadLoading(false);
         }
     };
 
@@ -36,11 +37,11 @@ export const IncomeList = ({
                 <h5 className="text-lg font-semibold">Nguồn thu nhập</h5>
                 <div className="flex items-center justify-end gap-2">
                     <button
-                        disabled={isLoading}
+                        disabled={isEmailLoading || isDownloadLoading}
                         onClick={handleEmail}
                         className="main-btn"
                     >
-                        {isLoading ? (
+                        {isEmailLoading ? (
                             <>
                                 <LoaderCircle className="w-4 h-4 animate-spin" />
                                 Đang gửi...
@@ -53,11 +54,11 @@ export const IncomeList = ({
                         )}
                     </button>
                     <button
-                        disabled={isLoading}
+                        disabled={isEmailLoading || isDownloadLoading}
                         onClick={handleDownload}
                         className="main-btn"
                     >
-                        {isLoading ? (
+                        {isDownloadLoading ? (
                             <>
                                 <LoaderCircle className="w-4 h-4 animate-spin" />
                                 Đang tải...
